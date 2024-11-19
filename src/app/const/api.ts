@@ -1,5 +1,7 @@
+import { environment } from "../../environment/environment";
+
 export const BASE_URL = 'https://api.themoviedb.org/3';
-export const API_KEY = process.env['API_KEY'];
+export const API_KEY = environment.apiKey;
 export const BASE_URL_IMG = 'https://image.tmdb.org/t/p/w500';
 
 export const ENDPOINTS = {
