@@ -5,6 +5,7 @@ import { FooterComponent } from "../../components/template/footer/footer.compone
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { MovieListGridComponent } from "../../components/movie-list-grid/movie-list-grid.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movie-list',
@@ -14,5 +15,10 @@ import { MovieListGridComponent } from "../../components/movie-list-grid/movie-l
   styleUrls: ['./movie-list.component.css']
 })
 export class MovieListComponent {
-  
+
+  constructor(private router: Router) {}
+
+  goBack(): void {
+    this.router.navigate(['/']);
+  }
 }

@@ -6,6 +6,7 @@ import { Movie, MovieDetail } from '../../model/movie';
 import { HeaderComponent } from "../../components/template/header/header.component";
 import { FooterComponent } from "../../components/template/footer/footer.component";
 import { Provider } from '../../model/provider';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class MovieDetailComponent implements OnInit {
   movieDetail: MovieDetail | null = null
   provider: Provider[] = [];
 
-  constructor(private movieService: MovieService) {}
+  constructor(private movieService: MovieService, private router: Router) {}
 
   ngOnInit(): void {
     this.movie = this.movieService.getSelectedMovie();
@@ -34,5 +35,13 @@ export class MovieDetailComponent implements OnInit {
         error => console.error(error)
       );
     }
+  }
+
+  goBack(): void {
+    this.router.navigate(['/liste']);
+  }
+
+  newSearch(): void {
+    this.router.navigate(['/']);
   }
 }
