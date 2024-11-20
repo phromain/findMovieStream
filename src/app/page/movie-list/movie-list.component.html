@@ -6,7 +6,7 @@
             <li *ngFor="let movie of searchResults" class="list-group-item d-flex justify-content-between align-items-center">
                 <div>
                     <h4 class="mb-1">
-                        <a [routerLink]="['/detail']" [queryParams]="{ title: generateSlug(movie.title) }">{{ movie.title }}</a>
+                        <a [routerLink]="[]" (click)="selectMovie(movie)">{{ movie.title }}</a>
                     </h4>
                 </div>
                 <small>{{ movie.releaseDate }}</small>

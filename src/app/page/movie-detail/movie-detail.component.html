@@ -1,1 +1,14 @@
-<p>movie-detail works!</p>
+<app-header></app-header>
+<div class="container d-flex flex-column min-vh-85 justify-content-between">
+    <div class="rounded-pill bg-dark bg-opacity-50 d-flex flex-column justify-content-start px-5 py-4">
+        <h3>{{ movieDetail?.title }}</h3>
+        <ul class="list-group">
+            <li class="list-group-item">Résumé : {{ movieDetail?.overview }}</li>
+            <li class="list-group-item">Date de sortie : {{ movieDetail?.releaseDate }}</li>
+            <li class="list-group-item">ID : {{ movieDetail?.id }}</li>
+        </ul>
+    </div>
+    <div class="w-100 mt-auto">
+        <app-footer></app-footer>
+    </div>
+</div>
