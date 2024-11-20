@@ -1,1 +1,69 @@
-<p>movie-detail works!</p>
+<app-header></app-header>
+<div class="container d-flex flex-column min-vh-85 justify-content-between my-4">
+
+    <div class="card bg-dark bg-opacity-50 text-light">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3>{{ movie?.title || 'Titre non disponible' }}</h3>
+            <small>{{ movie?.releaseDate ? (movie?.releaseDate | date:'dd/MM/yyyy') : 'Date de sortie non disponible' }}</small>
+        </div>
+
+        <div class="text-center my-3">
+            <h5>Disponible sur ces plateformes</h5>
+            <div *ngIf="provider.length > 0; else noProviders" class="d-flex justify-content-center my-3">
+                <span *ngFor="let provider of provider; let i = index" class="mx-2">
+                    <a [href]="'about:blank'" target="_blank" rel="noopener noreferrer">
+                        <img [src]="provider.logoPath" [alt]="provider.providerName" width="100" height="100" class="provider-logo">
+                    </a>
+                </span>
+            </div>
+            <ng-template #noProviders>
+                <div class="text-center my-3">
+                    <p>Aucune plateformes pour le moment</p>
+                </div>
+            </ng-template>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <img [src]="movie?.posterPath || 'https://via.placeholder.com/300x450?text=Image+non+disponible'" class="img-fluid rounded" alt="{{ movie?.title || 'Affiche non disponible' }}">
+                </div>
+                <div class="col-md-8">
+                    <h4 class="card-title">Résumé</h4>
+                    <p class="card-text">{{ movie?.overview || 'Pas de résumé disponible.' }}</p>
+                    <h5 class="mt-4">Détails supplémentaires</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item bg-dark bg-opacity-25 text-light"><strong>Genres :</strong>
+                            <span *ngIf="movieDetail && movieDetail.genres && movieDetail.genres.length > 0; else noGenres">
+                                <ng-container *ngFor="let genre of movieDetail.genres; let i = index">
+                                    {{ genre.name }}<span *ngIf="i < (movieDetail.genres.length - 1)">, </span>
+                                </ng-container>
+                            </span>
+                            <ng-template #noGenres>Genres non disponibles</ng-template>
+                        </li>
+                        <li class="list-group-item bg-dark bg-opacity-25 text-light"><strong>Durée :</strong> {{ movieDetail?.runtime || 'Durée non disponible' }} minutes</li>
+                        <li class="list-group-item bg-dark bg-opacity-25 text-light"><strong>Note Moyenne :</strong> {{ movieDetail?.voteAverage || 'Note non disponible' }} / 10</li>
+                        <li class="list-group-item bg-dark bg-opacity-25 text-light"><strong>Nombre de Votes :</strong> {{ movieDetail?.voteCount || 'Nombre de votes non disponible' }}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-4">
+                <h5>Maisons de Production</h5>
+                <ul class="list-group list-group-flush">
+                    <li *ngFor="let company of movieDetail?.productionCompanies" class="list-group-item bg-dark bg-opacity-25 text-light">
+                        <strong>{{ company.name }}</strong> ({{ company.originCountry || 'Pays non disponible' }})
+                        <img *ngIf="company.logoPath" [src]="company.logoPath" alt="{{ company.name }}" class="ms-2" style="width: 50px;">
+                    </li>
+                    <span *ngIf="!movieDetail?.productionCompanies?.length">Maisons de production non disponibles</span>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="w-100 mt-4 text-center">
+        <button class="btn btn-light text-dark rounded-pill me-3" (click)="goBack()">Retour</button>
+        <button class="btn btn-light text-dark rounded-pill" (click)="newSearch()">Nouvelle Recherche</button>
+    </div>
+    <div class="w-100 mt-auto">
+        <app-footer></app-footer>
+    </div>
+</div>

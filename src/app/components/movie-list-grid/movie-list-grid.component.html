@@ -1,1 +1,14 @@
-<p>movie-list-grid works!</p>
+<div class="container">
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-3">
+        <div *ngFor="let movie of searchResults" class="col">
+            <div class="card h-100 position-relative cursor-pointer" (click)="selectMovie(movie)">
+                <img [src]="movie.posterPath || 'https://via.placeholder.com/300x450?text=Image+non+disponible'"
+                    class="card-img-top movie-poster" [alt]="movie.title">
+                <div *ngIf="!movie.posterPath"
+                    class="position-absolute top-50 start-50 translate-middle bg-dark bg-opacity-75 text-white p-2 text-center rounded">
+                    {{ movie.title }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,1 +1,13 @@
-<p>movie-list works!</p>
+<app-header></app-header>
+<div class="container d-flex flex-column min-vh-85 justify-content-between">
+    <div class="card bg-dark bg-opacity-50 d-flex flex-column justify-content-start px-5 py-4">
+        <h3 class="text-light">Résultats de la recherche</h3>
+        <app-movie-list-grid></app-movie-list-grid>
+    </div>
+    <div class="w-100 mt-auto text-center">
+        <button class="btn btn-light text-dark rounded-pill mt-4" (click)="goBack()">Retour à la recherche</button>
+    </div>
+    <div class="w-100 mt-auto">
+        <app-footer></app-footer>
+    </div>
+</div>
