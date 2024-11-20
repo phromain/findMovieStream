@@ -11,8 +11,9 @@ import { ENDPOINTS, BASE_URL_IMG, ERROR_MESSAGES, API_KEY } from '../const/api';
 })
 export class MovieService {
   private selectedMovieId: number | null = null;
+  private searchResults: Movie[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   setSelectedMovieId(movieId: number): void {
     this.selectedMovieId = movieId;
@@ -22,12 +23,20 @@ export class MovieService {
     return this.selectedMovieId;
   }
 
+  setSearchResults(results: Movie[]): void {
+    this.searchResults = this.sortMoviesByDate(results);
+  }
+
+  getSearchResults(): Movie[] {
+    return this.searchResults;
+  }
+
   searchMovies(query: string): Observable<Movie[]> {
     const url = `${ENDPOINTS.movie.search}?api_key=${API_KEY}&query=${encodeURIComponent(query)}&language=fr`;
     return this.http.get<{ results: any[] }>(url).pipe(
       map(response => {
-        if (!response.results) {
-          throw new Error(ERROR_MESSAGES.noResults);
+        if (!response.results || response.results.length === 0) {
+          throw { type: 'NO_RESULTS', message: ERROR_MESSAGES.noResults };
         }
         return response.results.map(item => new Movie(
           item.id,
@@ -37,14 +46,18 @@ export class MovieService {
           item.release_date || 'Date non spécifiée'
         ));
       }),
-      catchError(error => throwError(this.handleError(error)))
+      catchError(error => {
+        if (error.type === 'NO_RESULTS') {
+          return throwError(error.message);
+        }
+        return throwError(ERROR_MESSAGES.serviceUnavailable);
+      })
     );
   }
 
-  private handleError(error: any): string {
-    if (error.status) {
-      return ERROR_MESSAGES.httpError(error.status);
-    }
-    return error.message ;
+  private sortMoviesByDate(movies: Movie[]): Movie[] {
+    return movies.sort((a, b) => {
+      return new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime();
+    });
   }
 }

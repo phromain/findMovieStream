@@ -2,9 +2,4 @@
     <input type="text" class="form-control rounded-pill me-2" placeholder="Rechercher un film" [(ngModel)]="query">
     <button type="button" class="btn btn-light text-dark rounded-pill" (click)="searchMovies()">Recherche</button>
 </div>
-<div *ngIf="movies.length > 0">
-    <h3>Résultats de la recherche :</h3>
-    <ul>
-        <li *ngFor="let movie of movies">{{ movie.title }}</li>
-    </ul>
-</div>
+<div *ngIf="booleanError" class="mt-3 text-danger">{{ errorMessage }}

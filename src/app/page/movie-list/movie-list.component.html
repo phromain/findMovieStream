@@ -1,1 +1,17 @@
-<p>movie-list works!</p>
+<app-header></app-header>
+<div class="container d-flex flex-column min-vh-85 justify-content-between">
+    <div class="rounded-pill bg-dark bg-opacity-50 d-flex flex-column justify-content-start px-5 py-4">
+        <h3>Résultats de la recherche</h3>
+        <ul class="list-group">
+            <li *ngFor="let movie of searchResults" class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <h4 class="mb-1">{{ movie.title }}</h4>
+                </div>
+                <small>{{ movie.releaseDate }}</small>
+            </li>
+        </ul>
+    </div>
+    <div class="w-100 mt-auto">
+        <app-footer></app-footer>
+    </div>
+</div>

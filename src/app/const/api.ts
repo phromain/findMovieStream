@@ -16,8 +16,8 @@ export const ENDPOINTS = {
 };
 
 export const ERROR_MESSAGES = {
-    httpError: (status: number) => `Erreur HTTP: ${status}`,
     noResults: 'Aucun résultat trouvé',
     noDetails: 'Détails du film non trouvés',
-    noProviders: 'Aucun fournisseur trouvé pour ce film.'
+    noProviders: 'Aucun fournisseur trouvé pour ce film.',
+    serviceUnavailable: 'Service Indisponible, réessayez ultérieurement' 
 };

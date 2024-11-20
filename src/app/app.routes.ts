@@ -8,6 +8,5 @@ export const routes: Routes = [
     { path: '', component: MovieSearchComponent },
     { path: 'liste', component: MovieListComponent },
     { path: 'detail', component: MovieDetailComponent },
-    { path: '**', component: PageNotFoundComponent },
-
+    { path: '**', component: PageNotFoundComponent }
 ];
