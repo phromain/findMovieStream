@@ -1,5 +1,7 @@
-<div class="input-group mb-3">
-    <input type="text" class="form-control rounded-pill me-2" placeholder="Rechercher un film" [(ngModel)]="query">
-    <button type="button" class="btn btn-light text-dark rounded-pill" (click)="searchMovies()">Recherche</button>
-</div>
-<div *ngIf="booleanError" class="mt-3 text-danger">{{ errorMessage }}
+<form (submit)="searchMovies()">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control rounded-pill me-2" placeholder="Rechercher un film" [(ngModel)]="query" name="query">
+        <button type="submit" class="btn btn-light text-dark rounded-pill">Recherche</button>
+    </div>
+    <div *ngIf="booleanError" class="mt-3 text-danger">{{ errorMessage }}</div>
+</form>
