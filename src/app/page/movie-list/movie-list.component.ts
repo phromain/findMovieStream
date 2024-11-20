@@ -6,29 +6,15 @@ import { HeaderComponent } from "../../components/template/header/header.compone
 import { FooterComponent } from "../../components/template/footer/footer.component";
 import { HttpClientModule } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
+import { MovieListGridComponent } from "../../components/movie-list-grid/movie-list-grid.component";
 
 @Component({
   selector: 'app-movie-list',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, CommonModule, HttpClientModule, RouterModule],
+  imports: [HeaderComponent, FooterComponent, CommonModule, HttpClientModule, RouterModule, MovieListGridComponent],
   templateUrl: './movie-list.component.html',
   styleUrls: ['./movie-list.component.css']
 })
-export class MovieListComponent implements OnInit {
-  searchResults: Movie[] = [];
-
-  constructor(private movieService: MovieService, private router: Router) {}
-
-  ngOnInit(): void {
-    this.searchResults = this.movieService.getSearchResults();
-  }
-
-  selectMovie(movie: Movie): void {
-    this.movieService.setSelectedMovie(movie);
-    this.router.navigate(['/detail'], { queryParams: { id: movie.id, title: this.generateSlug(movie.title) } });
-  }
-
-  generateSlug(title: string): string {
-    return this.movieService.generateSlug(title);
-  }
+export class MovieListComponent {
+  
 }
