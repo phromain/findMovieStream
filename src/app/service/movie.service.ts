@@ -60,4 +60,7 @@ export class MovieService {
       return new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime();
     });
   }
+  generateSlug(title: string): string {
+    return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+  }
 }
