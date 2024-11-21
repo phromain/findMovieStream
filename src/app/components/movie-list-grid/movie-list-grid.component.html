@@ -5,7 +5,7 @@
                 <img [src]="movie.posterPath || 'assets/img/300x450.png'"
                     class="card-img-top movie-poster" [alt]="movie.title">
                 <div *ngIf="!movie.posterPath"
-                    class="position-absolute top-50 start-50 translate-middle bg-dark bg-opacity-75 text-white p-2 text-center rounded">
+                    class="position-absolute bottom-50 start-50 translate-middle bg-dark bg-opacity-75 text-white p-2 text-center rounded">
                     {{ movie.title }}
                 </div>
             </div>

@@ -38,13 +38,15 @@ export class MovieService {
         if (!response.results || response.results.length === 0) {
           throw { type: 'NO_RESULTS', message: ERROR_MESSAGES.noResults };
         }
-        return response.results.map(item => new Movie(
-          item.id,
-          item.title,
-          item.poster_path ? `${BASE_URL_IMG}${item.poster_path}` : null,
-          item.overview || 'Pas de résumé disponible',
-          item.release_date || 'Date non spécifiée'
-        ));
+        return response.results
+          .filter(item => this.isValidMovie(item))
+          .map(item => new Movie(
+            item.id,
+            item.title,
+            item.poster_path ? `${BASE_URL_IMG}${item.poster_path}` : null,
+            item.overview || 'Pas de résumé disponible',
+            item.release_date || 'Date non spécifiée'
+          ));
       }),
       catchError(error => {
         if (error.type === 'NO_RESULTS') {
@@ -109,6 +111,15 @@ export class MovieService {
         return throwError(ERROR_MESSAGES.serviceUnavailable);
       })
     );
+  }
+
+
+  private isValidMovie(item: any): boolean {
+    const posterPath = item.poster_path ? `${BASE_URL_IMG}${item.poster_path}` : null;
+    const overview = item.overview;
+    const releaseDate = item.release_date;
+
+    return posterPath !== null || (overview && overview.trim() !== '') || (releaseDate && releaseDate.trim() !== '');
   }
 
 }
